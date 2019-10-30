@@ -33,11 +33,20 @@ def _create_new_dir(path, dirname):
     new_dir.mkdir()
     return new_dir
 
-def _is_filename(value):
-    return isinstance(value, str)
-
-def _is_dir_and_filename(value):
-    return isinstance(value, dict)
+def _rec_create_tree(path, dirname):
+    for d in dirname:
+        if isinstance(d, str):
+            _create_new_doc(path, d)
+        elif isinstance(d, dict):
+            for k, v in d.items():
+                if isinstance(v, list):
+                    d2 = _create_new_dir(path, k)
+                    _rec_read_file(d2, v)
+                else:
+                    d2 = _create_new_dir(path, k)
+                    _create_new_doc(d2, v)
+        else:
+            break
 
 
 # Create new project.
@@ -77,7 +86,7 @@ class Project:
                 yml = yaml.safe_load(f)
                 return yml
 
-    def read_docs_dir(self):
+    def reload(self):
         config = self.read_config()
         docs = config['docs']
-        return docs
+        _rec_create_tree(Path(self.docs), docs)
