@@ -1,17 +1,42 @@
+from markdown import Markdown
 from string import Template
-#title,description,author,keyword,css_url,site_name,content,copyright
+
 
 MARKDOWN_TPL = '''\
 title:
+description:
 author:
 date:
+keyword:
 
-# Headind
+# Heading
 
 brahbrahbrah...
 '''
 
-BASE_TPL = Template('''\
+def convert_md(filename, css_url, site_name):
+    m = Markdown(extensions=['meta'])
+
+    with open(filename, 'rt', encoding='utf-8') as f:
+        text = f.read()
+        content = m.convert(text)
+        metadata = m.Meta
+    
+    html = create_html(
+            metadata['title'][0],
+            metadata['description'][0],
+            metadata['author'][0],
+            metadata['date'][0],
+            ', '.join(metadata['keyword']),
+            css_url,
+            site_name,
+            content,
+            site_name + ' ' +metadata['author'][0]
+                )
+    return html
+
+
+_BASE_TPL = Template('''\
 <!DOCTYPE HTML>
 <html>
   <head>
@@ -21,7 +46,8 @@ BASE_TPL = Template('''\
     <title>${title}</title>
     <meta name="description" content="${description}">
     <meta name="author" content="${author}">
-    <meta name="keyword" content="${keywoord}">
+    <meta name="date" content="${date}">
+    <meta name="keyword" content="${keyword}">
     <link rel="stylesheet" href="${css_url}" type="text/css">
   </head>
   <body>
@@ -38,12 +64,13 @@ BASE_TPL = Template('''\
 <html>
 ''')
 
-def create_html(title, description, author, keyword, css_url, site_name,
-        content, copyright):
-    html = BASE_TPL.safe_substitute(
+def create_html(title, description, author, date, keyword, css_url,
+        site_name, content, copyright):
+    html = _BASE_TPL.safe_substitute(
             title=title,
             description=description,
             author=author,
+            date=date,
             keyword=keyword,
             css_url=css_url,
             site_name=site_name,
