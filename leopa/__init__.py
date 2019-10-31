@@ -1,1 +1,1 @@
-from leopa.initialize import Project
+from leopa.main import Project
