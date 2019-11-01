@@ -1,5 +1,7 @@
 # Leopa
 
+<img src="./imgs/leopa.png" width=60% alt="leopa-logo">
+
 Static site generator with Python3.
 
 ## Usage

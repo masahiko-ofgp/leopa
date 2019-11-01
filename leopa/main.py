@@ -18,8 +18,6 @@ site_description: "brah brah brah..."
 site_author: "author name"
 copyright: "Copyright (c) ...."
 
-css_url: "/your/repo/url"
-
 docs:
     - "index.md"
 ''')
@@ -112,7 +110,7 @@ class Project:
             docs_files.append("./" + str(d))
         
         for d in docs_files:
-            content = convert_md(d, config['css_url'], config['site_name'])
+            content = convert_md(d, config['site_name'])
             _rec_create_tree(
                     Path(self.public),
                     docs_files,

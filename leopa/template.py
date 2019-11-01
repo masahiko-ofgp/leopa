@@ -8,13 +8,14 @@ description:
 author:
 date:
 keyword:
+css:
 
 # Heading
 
 brahbrahbrah...
 '''
 
-def convert_md(filename, css_url, site_name):
+def convert_md(filename, site_name):
     m = Markdown(extensions=['meta'])
 
     with open(filename, 'rt', encoding='utf-8') as f:
@@ -28,10 +29,10 @@ def convert_md(filename, css_url, site_name):
             metadata['author'][0],
             metadata['date'][0],
             ', '.join(metadata['keyword']),
-            css_url,
+            metadata['css'][0],
             site_name,
             content,
-            site_name + ' ' +metadata['author'][0]
+            site_name + ' ' + metadata['author'][0]
                 )
     return html
 
@@ -48,7 +49,7 @@ _BASE_TPL = Template('''\
     <meta name="author" content="${author}">
     <meta name="date" content="${date}">
     <meta name="keyword" content="${keyword}">
-    <link rel="stylesheet" href="${css_url}" type="text/css">
+    <link rel="stylesheet" href="${css}" type="text/css">
   </head>
   <body>
     <header>
@@ -64,7 +65,7 @@ _BASE_TPL = Template('''\
 <html>
 ''')
 
-def create_html(title, description, author, date, keyword, css_url,
+def create_html(title, description, author, date, keyword, css,
         site_name, content, copyright):
     html = _BASE_TPL.safe_substitute(
             title=title,
@@ -72,7 +73,7 @@ def create_html(title, description, author, date, keyword, css_url,
             author=author,
             date=date,
             keyword=keyword,
-            css_url=css_url,
+            css=css,
             site_name=site_name,
             content=content,
             copyright=copyright
