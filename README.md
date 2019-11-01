@@ -1,6 +1,6 @@
 # Leopa
 
-<img src="./imgs/leopa.png" width=60% alt="leopa-logo">
+<img src="./imgs/leopa.png" width=30% alt="leopa-logo">
 
 Static site generator with Python3.
 
