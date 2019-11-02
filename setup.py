@@ -12,6 +12,7 @@ setup(
         'License :: OSI Approved ::MIT License',
         'Programming Language :: Python 3.7',
     ],
+    install_requires=['pyyaml', 'markdown'],
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
