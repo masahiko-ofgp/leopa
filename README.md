@@ -4,11 +4,6 @@
 
 Static site generator with Python3.
 
-## installation
-
-`pipenv install git+https://github.com/masahiko-ofgp/leopa.git#egg=leopa`
-
-
 ## Usage
 
 ```
